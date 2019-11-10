@@ -39,6 +39,10 @@
     }
     
     
+     newTodo(event){
+       
+     }
+     
      
      render(){
     
@@ -47,7 +51,9 @@
               <span>
               <input type="checkbox" checked={this.state.done} 
                                       onClick={this.handleClick}/> 
+                                      
               <input type="text" value={this.state.text} 
+                                 className={(this.state.done)? 'done':'not-done'}
                                  onChange={this.handleChange} 
                                  onBlur={this.handleSubmit} />
               
@@ -80,20 +86,34 @@
                                  _id: 'd',
                                 text: 'Item 4',
                                 done: false
-                               },
+                               }
                                
                              ]
          
                     };
+        this.newTodo = this.newTodo.bind(this);
      }
-     render(){
-       const todoList = this.state.todos.map((todo) => <Todo key={todo._id.toString()} text={todo.text} done={todo.done} />);
-        
-       return <React.Fragment>
-              <h1> React Todo App </h1>
-              {todoList}
-              </React.Fragment>
+     
+     newTodo(event){
+       event.preventDefault();
+       todos = this.state.todos;
+       todos.push({_id: "" });
+       this.setState(state => ({
+         todos: todos
+       }));
      }
+     
+    render(){
+        const todoList = this.state.todos.map((todo) =>
+          <Todo key={todo._id.toString()} text={todo.text} done={todo.done} />
+        );
+     
+        return <React.Fragment>
+                 <h1>React Todo App</h1>
+                 {todoList}
+                 <a href="#" onClick={this.newTodo}>New Todo</a>
+               </React.Fragment>
+      }
        
      
    }

@@ -55,6 +55,9 @@ var Todo = function (_React$Component) {
       // }));
     }
   }, {
+    key: "newTodo",
+    value: function newTodo(event) {}
+  }, {
     key: "render",
     value: function render() {
 
@@ -67,6 +70,7 @@ var Todo = function (_React$Component) {
           React.createElement("input", { type: "checkbox", checked: this.state.done,
             onClick: this.handleClick }),
           React.createElement("input", { type: "text", value: this.state.text,
+            className: this.state.done ? 'done' : 'not-done',
             onChange: this.handleChange,
             onBlur: this.handleSubmit })
         )
@@ -104,10 +108,23 @@ var TodoList = function (_React$Component2) {
       }]
 
     };
+    _this2.newTodo = _this2.newTodo.bind(_this2);
     return _this2;
   }
 
   _createClass(TodoList, [{
+    key: "newTodo",
+    value: function newTodo(event) {
+      event.preventDefault();
+      todos = this.state.todos;
+      todos.push({ _id: "" });
+      this.setState(function (state) {
+        return {
+          todos: todos
+        };
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var todoList = this.state.todos.map(function (todo) {
@@ -120,9 +137,14 @@ var TodoList = function (_React$Component2) {
         React.createElement(
           "h1",
           null,
-          " React Todo App "
+          "React Todo App"
         ),
-        todoList
+        todoList,
+        React.createElement(
+          "a",
+          { href: "#", onClick: this.newTodo },
+          "New Todo"
+        )
       );
     }
   }]);
